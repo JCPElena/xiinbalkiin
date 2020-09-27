@@ -1,12 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    </div>
+  <BarraNavegacion />
+  </div>
 </template>
 
 <script>
-
-export default {
-  name: 'Home',
-}
+ import BarraNavegacion from "../components/BarraNavegacion";
+  export default {
+    name: "Home",
+    components: {
+      BarraNavegacion,
+    },
+  }
 </script>
+
+<style lang="scss" scoped>
+
+</style>
