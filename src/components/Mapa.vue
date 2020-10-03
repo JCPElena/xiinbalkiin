@@ -5,7 +5,7 @@
 <script>
 import L from "leaflet";
 import { db } from "../common/Firebase";
-
+import { ruta } from "../common/Ruta";
 //esto son clases
 export default {
   name: "mapaComponent",
@@ -21,14 +21,15 @@ export default {
     async init() {
       await this.pintarMapa();
       await this.obtenerMarcadores();
-      await this.pintarMarcador();
+      await this.pintarRuta();
+
     },
     pintarMapa() {
       const contenedorMapa = this.$refs.contenedorMapa;
       //instanciamos el mapa
       this.mapa = L.map(contenedorMapa, {
-        center: [18.0765757, -94.3811401],
-        zoom: 13,
+        center: [18.0765757,-94.3811401],
+        zoom: 12,
       });
       //le agregamos la capa personalizada del mapa leaflet
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -51,6 +52,14 @@ export default {
     },
     pintarMarcador(coordenadas){
         L.marker(coordenadas).addTo(this.mapa);
+    },
+    pintarRuta(){
+      L.geoJSON(ruta, {
+        style: {
+          color: "#6200EA",
+          weight: 12,
+        },
+      }).addTo(this.mapa);
     },
   },
 };
