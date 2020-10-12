@@ -4,13 +4,12 @@
 
 <script>
 import L from "leaflet";
-import { db } from "../common/Firebase";
 import { ruta } from "../common/Ruta";
 //esto son clases
 export default {
   name: "mapaComponent",
   mounted() {
-    this.init();
+   // this.init();
   },
 
   data: () => ({
@@ -21,7 +20,6 @@ export default {
     async init() {
       await this.obtenerPosicion();
       await this.pintarMapa();
-      await this.obtenerMarcadores();
       await this.pintarRuta();
     },
     pintarMapa() {
@@ -35,20 +33,6 @@ export default {
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 18,
       }).addTo(this.mapa);
-    },
-    async obtenerMarcadores() {
-      try {
-        const response = await db.collection("estaciones").get();
-
-        response.docs.forEach((e) => {
-          let latitud = e.data().coordenadas.latitude;
-          let longitud = e.data().coordenadas.longitude;
-
-          this.pintarMarcador([latitud, longitud]);
-        });
-      } catch (error) {
-        console.warn(error);
-      }
     },
     pintarMarcador(
       coordenadas,
