@@ -5,11 +5,12 @@
 <script>
 import L from "leaflet";
 import { ruta } from "../common/Ruta";
+import { mapState } from "vuex";
 //esto son clases
 export default {
   name: "mapaComponent",
   mounted() {
-   // this.init();
+    this.init();
   },
 
   data: () => ({
@@ -21,7 +22,19 @@ export default {
       await this.obtenerPosicion();
       await this.pintarMapa();
       await this.pintarRuta();
+     // await this.pintarMarcadores();
     },
+    dibujarMarcadores() {
+     // console.log(this.estaciones);
+      this.estaciones.forEach((e) => {
+        let latitud = e.latitud;
+        let longitud = e.longitud;
+
+        this.pintarMarcador([latitud, longitud]);
+
+      });
+    },
+
     pintarMapa() {
       const contenedorMapa = this.$refs.contenedorMapa;
       //instanciamos el mapa
@@ -55,9 +68,8 @@ export default {
       }).addTo(this.mapa);
     },
     obtenerPosicion() {
-// Actualizar para hacer mas precisa la posicion 
-// y actualizar el marcador cuando cambie las coordenadas
-
+      // Actualizar para hacer mas precisa la posicion
+      // y actualizar el marcador cuando cambie las coordenadas
 
       if (!navigator.geolocation) {
         alert("No tienes GPS");
@@ -75,6 +87,14 @@ export default {
       });
     },
   },
+  computed: {
+    ...mapState(["estaciones", "pintarMarcadores"]),
+  },
+  watch:{
+  pintarMarcadores: function(){
+    if (this.pintarMarcadores ==  true) this.dibujarMarcadores();
+   }
+  }
 };
 </script>
 
