@@ -40,7 +40,7 @@
           <v-btn color="red darken-1" dark depressed @click="$emit('cancel')">
             Cancelar
           </v-btn>
-          <v-btn color="green darken-1" dark depressed @click="dialog = false">
+          <v-btn color="green darken-1" dark depressed @click="enviarDatosFirebase" >
             Agregar Estación
           </v-btn>
         </v-card-actions>
@@ -50,6 +50,9 @@
 </template>
 
 <script>
+import { db } from "../common/Firebase";
+import { firestore } from "firebase/app";
+
 export default {
   props: {
     dialog: {
@@ -61,9 +64,28 @@ export default {
     estacion: {
       nombre: "",
       latitud: "",
-      longitud: ""
+      longitud: "",
     },
   }),
+  methods: {
+    enviarDatosFirebase() {
+        
+      const coordenadas = new firestore.GeoPoint(
+        parseFloat(this.estacion.latitud),
+        parseFloat(this.estacion.longitud)
+      );
+      const data = {
+        nombre: this.estacion.nombre,
+        coordenadas: coordenadas,
+      };
+
+      db.collection("estaciones")
+        .add(data)
+        .then(() => {
+          this.$emit("cancel");
+        });
+    },
+  },
 };
 </script>
 

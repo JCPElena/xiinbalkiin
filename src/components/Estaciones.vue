@@ -16,11 +16,15 @@
           >Agregar estación<v-icon right> mdi-map-marker-remove </v-icon>
         </v-btn>
       </v-card-title>
-      <v-data-table
-        :headers="headers"
-        :items="estaciones"
-        :search="search"
-      ></v-data-table>
+      <v-data-table :headers="headers" :items="estaciones" :search="search">
+      
+      <template v-slot:item.detalles="{ item }">
+          <v-btn icon color="red" @click="eliminarEstacion(item.idFirebase)"
+            ><v-icon> mdi-delete </v-icon></v-btn
+          >
+        </template>
+      
+      </v-data-table>
       <NuevaEstacion :dialog="dialog" @cancel="dialog = false" />
     </v-card>
   </v-container>
@@ -29,6 +33,7 @@
 <script>
 import { mapState } from "vuex";
 import NuevaEstacion from "./NuevaEstacion";
+import {db } from "../common/Firebase";
 
 export default {
   name: "EstacionesComponent",
@@ -51,6 +56,21 @@ export default {
       dialog: false
     };
   },
+  methods: {
+ async eliminarEstacion(idFirebase){
+   try{
+     const response =await db
+     .collection("estaciones")
+     .doc(idFirebase).delete();
+     console.log(response);
+     alert("ELIMINAR DE FORMA CORRECTA");
+   }catch (error){
+console.log(error);
+alert("NO SE BORRO CORRECTAMENTE");
+   }
+ },
+  },
+
   computed: {
     ...mapState(["estaciones"]),
   },
