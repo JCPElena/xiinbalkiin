@@ -18,7 +18,7 @@
       </v-card-title>
       <v-data-table :headers="headers" :items="estaciones" :search="search">
       
-      <template v-slot:item.detalles="{ item }">
+      <template v-slot:item.detalles="{ item }"> 
           <v-btn icon color="red" @click="eliminarEstacion(item.idFirebase)"
             ><v-icon> mdi-delete </v-icon></v-btn
           >
