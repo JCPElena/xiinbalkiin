@@ -103,6 +103,7 @@ export default {
       latitud: "18.0765757",
       longitud: "-94.3811401",
       imgUrl: "",
+      rutaStorage:""
     },
     image: "",
     imageFile: "",
@@ -168,6 +169,7 @@ export default {
         nombre: this.estacion.nombre,
         coordenadas: coordenadas,
         urlImagen: this.estacion.imgUrl,
+        rutaStorage: this.estacion.rutaStorage
       };
 
       db.collection("estaciones")
@@ -183,12 +185,14 @@ export default {
       };
     },
     async subirImagen() {
+      const ruta = 'estaciones/" + this.imageFile.name}';
       try {
         const upload = await storage
-          .child("estaciones/" + this.imageFile.name)
+          .child(ruta)
           .put(this.imageFile);
         const urlImg = await upload.ref.getDownloadURL();
         this.estacion.imgUrl = urlImg;
+        this.estacion.rutaStorage = ruta;
       } catch (error) {
         console.log(error);
       }

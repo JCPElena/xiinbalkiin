@@ -32,6 +32,7 @@ export default {
           let nombre = e.data().nombre;
           let imagen = e.data().urlImagen;
           let idFirebase = e.id;
+          let rutaStorage = e.data().rutaStorage;
 
           let estacion = {
             idFirebase,
@@ -39,6 +40,7 @@ export default {
             imagen,
             latitud,
             longitud,
+            rutaStorage,
           };
 
           this.agregarEstacion(estacion);
