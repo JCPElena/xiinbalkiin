@@ -1,7 +1,7 @@
 <template>
 
 <div>
-    <h1>Administrador</h1>
+    <center><h1>Administrador</h1></center>
     <Estaciones />
 </div>
 
