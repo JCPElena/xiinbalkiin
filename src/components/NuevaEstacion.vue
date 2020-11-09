@@ -3,8 +3,7 @@
     <v-dialog v-model="dialog" persistent max-width="800">
       <v-card>
         <v-card-title class="headline"> Nueva Estación </v-card-title>
-        <v-card-text
-          ><!--validamos lo que entra al formulario-->
+        <v-card-text><!--validamos lo que entra al formulario-->
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row>
               <v-col cols="12" class="mb-0 pb-0">
@@ -16,7 +15,7 @@
                   v-model="estacion.nombre"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6" class="mb-0 mt-0 mb-0 pb-0 pt-0">
+              <v-col cols="6" class="mb-0 mt-0 pb-0 pt-0">
                 <v-text-field
                   disabled
                   label="Latitud"
@@ -25,7 +24,7 @@
                   v-model="estacion.latitud"
                 ></v-text-field>
               </v-col>
-              <v-col cols="6" class="mb-0 mt-0 mb-0 pb-0 pt-0">
+              <v-col cols="6" class="mb-0 mt-0 pb-0 pt-0">
                 <v-text-field
                   disabled
                   label="Longitud"
@@ -73,6 +72,8 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+<!--Overlay-->
     <v-overlay :value="loading" z-index="999">
       <v-progress-circular indeterminate size="64"></v-progress-circular>
     </v-overlay>
@@ -187,9 +188,7 @@ export default {
     async subirImagen() {
       const ruta = 'estaciones/" + this.imageFile.name}';
       try {
-        const upload = await storage
-          .child(ruta)
-          .put(this.imageFile);
+        const upload = await storage.child(ruta).put(this.imageFile);
         const urlImg = await upload.ref.getDownloadURL();
         this.estacion.imgUrl = urlImg;
         this.estacion.rutaStorage = ruta;

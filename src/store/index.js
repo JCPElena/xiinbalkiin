@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     estaciones: [],
-    pintarMarcadores: false
+    pintarMarcadores: false,
   },
   mutations: {
     SET_ESTACIONES(state,payload){
@@ -15,6 +15,9 @@ export default new Vuex.Store({
     SHOW_MARKERS(state){
       state.pintarMarcadores = true;
     },
+    ELIMINAR_ESTACION(state,index){
+      state.estaciones.splice(index, 1);
+    }
   },
   actions: {
     agregarEstacion({commit}, payload){
@@ -22,8 +25,10 @@ export default new Vuex.Store({
     },
     pintaLosMarcadores({commit}){
       commit('SHOW_MARKERS');
-    }
+    },
+    eliminarEstacionStore({ commit}, index){
+      commit('ELIMINAR_ESTACION',index);
+    },
   },
-  modules: {
-  }
+  modules: {},
 })

@@ -7,7 +7,7 @@
 </v-col>
        <v-col cols="6">
         <h1 class="text-center">Xiinbalkiin</h1>   
-        <h2 class="text-center">Sistema de ubicación de transporte público </h2>   
+       <!-- <h2 class="text-center">Sistema de ubicación de transporte público </h2>  --> 
          </v-col> 
     </v-row> 
 </v-container> 
